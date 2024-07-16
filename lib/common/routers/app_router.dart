@@ -1,3 +1,4 @@
+import 'package:cubex_ecommerce/pages/logInPage.dart';
 import 'package:get/get.dart';
 
 class AppRoute {
@@ -6,5 +7,6 @@ class AppRoute {
 
   static List<GetPage> pages = [
     // GetPage(name: homePageUrl, page: () => HomePage())
+    GetPage(name: loginPageUrl, page: () =>  LogInPage())
   ];
 }

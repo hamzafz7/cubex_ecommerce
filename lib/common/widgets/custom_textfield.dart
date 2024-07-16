@@ -1,3 +1,4 @@
+import 'package:cubex_ecommerce/common/providers/local/cache_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffix;
 
   const CustomTextField(
-      {Key? key,
+      {super.key,
       required this.controller,
       this.width,
       this.opacity = 1,
@@ -35,8 +36,7 @@ class CustomTextField extends StatelessWidget {
       this.keyboardType,
       this.isEnabled = true,
       this.onChanged,
-      this.suffix})
-      : super(key: key);
+      this.suffix});
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,15 @@ class CustomTextField extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.whiteColor.withOpacity(opacity),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Color.fromRGBO(173, 173, 173, 1))),
+          border: Border.all(color: const Color.fromRGBO(173, 173, 173, 1))),
       child: TextFormField(
-        autovalidateMode: AutovalidateMode.always,
+        textAlign: CacheProvider.getAppLocale() == "ar"
+            ? TextAlign.center
+            : TextAlign.justify,
+        textDirection: CacheProvider.getAppLocale() == "ar"
+            ? TextDirection.rtl
+            : TextDirection.ltr,
+        autovalidateMode: AutovalidateMode.disabled,
         onTap: onTap,
         enabled: isEnabled,
         readOnly: readOnly,
@@ -58,6 +64,7 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         validator: validator,
         decoration: InputDecoration(
+          errorBorder: InputBorder.none,
           border: InputBorder.none,
           suffixIcon: suffix,
           contentPadding: REdgeInsets.symmetric(
@@ -69,7 +76,7 @@ class CustomTextField extends StatelessWidget {
           hintStyle: Theme.of(context)
               .textTheme
               .labelMedium!
-              .copyWith(color: Color.fromRGBO(137, 137, 137, 1)),
+              .copyWith(color: const Color.fromRGBO(137, 137, 137, 1)),
         ),
       ),
     );
